@@ -156,7 +156,7 @@ class LMLearner(TextLearner):
         "Return `text` and the `n_words` that come after"
         self.model.reset()
         idxs = idxs_all = self.dls.test_dl([text]).do_item(0)[0].to(self.dls.device)
-        if no_unk: unk_idx = self.dls.vocab.index(UNK)
+        if no_unk: unk_idx = self.dls.vocab[0].index(UNK)
         for _ in (range(n_words) if no_bar else progress_bar(range(n_words), leave=False)):
             with self.no_bar(): preds,_ = self.get_preds(dl=[(idxs[None],)])
             res = preds[0][-1]
